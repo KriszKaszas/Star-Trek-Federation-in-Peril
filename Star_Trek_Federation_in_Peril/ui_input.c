@@ -4,11 +4,12 @@
 #include <SDL2_gfxPrimitives.h>
 
 
-#include "keymap_struct.h"
+#include "input_state_interface.h"
+#include "debugmalloc.h"
 
 
 
-void user_input(Keymap *km, SDL_TimerID id){
+void user_input(InputStateInterface *isi, SDL_TimerID id){
     SDL_Event event;
     SDL_WaitEvent(&event);
 
@@ -18,21 +19,40 @@ void user_input(Keymap *km, SDL_TimerID id){
             break;
         case SDL_KEYUP:
             switch (event.key.keysym.sym) {
-                case SDLK_LEFT: km->left = false; km->rajz = true; break;
-                case SDLK_RIGHT: km->right = false; km->rajz = true; break;
-                case SDLK_ESCAPE: km->quit = true; break;
+                case SDLK_UP:
+                    isi->up = false;
+                    break;
+                case
+                    SDLK_DOWN: isi->down = false;
+                    break;
+                case SDLK_LEFT:
+                    isi->left = false;
+                    break;
+                case SDLK_RIGHT:
+                    isi->right = false;
+                    break;
             }
             break;
 
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
-                case SDLK_LEFT: km->left = true; km->rajz = true; break;
-                case SDLK_RIGHT: km->right = true; km->rajz = true; break;
+                case SDLK_UP:
+                    isi->up = true;
+                    break;
+                case
+                    SDLK_DOWN: isi->down = true;
+                    break;
+                case SDLK_LEFT:
+                    isi->left = true;
+                    break;
+                case SDLK_RIGHT:
+                    isi->right = true;
+                    break;
             }
             break;
 
         case SDL_QUIT:
-            km->quit = true;
+            isi->quit = true;
             break;
     }
 }

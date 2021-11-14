@@ -23,10 +23,10 @@ typedef struct Star_map{
 }StarMap;
 
 
-StarMap *starmap_init();
+StarMap *starmap_init(int width, int hight);
 
 
-void advance_starmap_frame(StarMap *sm);
+void advance_starmap_frame(StarMap *sm, int width, int hight);
 
 
 void free_starmap(StarMap *sm);

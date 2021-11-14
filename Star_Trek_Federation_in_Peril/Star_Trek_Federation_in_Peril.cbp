@@ -47,19 +47,33 @@
 			<Add directory="$(#sdl2.lib)" />
 		</Linker>
 		<Unit filename="debugmalloc.h" />
+		<Unit filename="enemy_ship.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="enemy_ship.h" />
 		<Unit filename="game_engine.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="game_engine.h" />
-		<Unit filename="keymap_struct.h" />
+		<Unit filename="graphics.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="graphics.h" />
+		<Unit filename="input_state_interface.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="input_state_interface.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="star_map.h" />
-		<Unit filename="ui.c">
+		<Unit filename="player_ship.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ui.h" />
+		<Unit filename="player_ship.h" />
+		<Unit filename="star_map.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="star_map.h" />
 		<Unit filename="ui_input.c">
 			<Option compilerVar="CC" />
 		</Unit>
