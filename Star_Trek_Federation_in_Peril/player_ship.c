@@ -1,7 +1,6 @@
-#include "player_ship.h"
 #include "input_state_interface.h"
 #include "debugmalloc.h"
-
+#include "player_ship.h"
 #include <stdbool.h>
 
 

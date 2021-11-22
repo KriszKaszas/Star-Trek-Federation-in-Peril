@@ -1,10 +1,11 @@
-#include "ui_input.h"
+#include <input_state_interface.h>
+#include "ui_input.h"
+
 #include <stdbool.h>
 #include <SDL.h>
 #include <SDL2_gfxPrimitives.h>
 
 
-#include "input_state_interface.h"
 #include "debugmalloc.h"
 
 

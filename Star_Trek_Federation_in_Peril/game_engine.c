@@ -41,6 +41,7 @@ void behavior(){
         draw_player_ship(ps);
         draw_enemy_ship(es);
         render_screen();
+        random_number_in_range();
     }
     free_starmap(sm);
     free_player_ship(ps);

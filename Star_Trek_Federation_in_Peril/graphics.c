@@ -1,15 +1,15 @@
-#include "graphics.h"
 #include <SDL.h>
 #include <SDL2_gfxPrimitives.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "input_state_interface.h"
 #include "star_map.h"
 #include "player_ship.h"
 #include "enemy_ship.h"
+#include "input_state_interface.h"
 #include "debugmalloc.h"
+#include "graphics.h"
 
 static SDL_Window *window;
 static SDL_Renderer *renderer;
