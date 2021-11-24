@@ -51,6 +51,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="enemy_ship.h" />
+		<Unit filename="game_assets.h" />
+		<Unit filename="game_attributes.h" />
 		<Unit filename="game_engine.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -63,6 +65,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="input_state_interface.h" />
+		<Unit filename="keymap.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -13,17 +13,17 @@ PlayerShip *init_player_ship(int width, int hight, int health, int speed){
     return ps;
 }
 
-void move_player_ship(PlayerShip *ps, InputStateInterface *isi){
-    if(isi->up){
+void move_player_ship(PlayerShip *ps, InputStateInterface *isi, int width, int hight){
+    if(isi->up && ps->y_coor < hight){
         ps->y_coor -= ps->speed;
     }
-    if(isi->down){
+    if(isi->down &&  ps->y_coor > 0){
         ps->y_coor += ps->speed;
     }
-    if(isi->left){
+    if(isi->left && ps->x_coor < width){
         ps->x_coor -= ps->speed;
     }
-    if(isi->right){
+    if(isi->right && ps->x_coor > 0){
         ps->x_coor += ps->speed;
     }
 }

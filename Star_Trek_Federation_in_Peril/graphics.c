@@ -3,10 +3,11 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
+/*
 #include "star_map.h"
 #include "player_ship.h"
 #include "enemy_ship.h"
+*/
 #include "input_state_interface.h"
 #include "debugmalloc.h"
 #include "graphics.h"
@@ -49,27 +50,16 @@ void draw_background(StarMap *sm){
     }
 }
 
-void clear_background(StarMap *sm){
-    for(int i = 0; i < sm->length; i++){
-        filledCircleRGBA(renderer, sm->stars[i].x_coor, sm->stars[i].y_coor, sm->stars[i].radius,
-                         1,1,1,255);
-    }
-}
-
 void draw_player_ship(PlayerShip *ps){
     filledCircleRGBA(renderer, ps->x_coor, ps->y_coor, 30, 218, 223, 225, 255);
 }
-
-void clear_player_ship(PlayerShip *ps){
-    filledCircleRGBA(renderer, ps->x_coor, ps->y_coor, 30, 1, 1, 1, 255);
+void clear_screen(){
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
 }
 
 void draw_enemy_ship(EnemyShip *es){
-    filledCircleRGBA(renderer, es->x_coor, es->y_coor, 30, 46, 204, 113, 225);
-}
-
-void clear_enemy_ship(EnemyShip *es){
-    filledCircleRGBA(renderer, es->x_coor, es->y_coor, 30, 1, 1, 1, 255);
+    filledCircleRGBA(renderer, es->x_coor, es->y_coor, 30, 46, 204, 113, 255);
 }
 
 void render_screen(){

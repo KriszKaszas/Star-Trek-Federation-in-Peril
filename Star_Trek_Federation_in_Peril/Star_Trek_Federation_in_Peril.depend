@@ -2,7 +2,7 @@
 1636889306 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\main.c
 	"game_engine.h"
 
-1636929921 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\game_engine.h
+1637574089 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\game_engine.h
 
 1636905679 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\ui.c
 	"ui.h"
@@ -374,34 +374,41 @@
 	<math.h>
 	"SDL.h"
 
-1636928887 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\game_engine.c
+1637777018 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\game_engine.c
 	"game_engine.h"
 	<stdlib.h>
 	<stdbool.h>
 	<SDL.h>
 	"input_state_interface.h"
+	"keymap.h"
 	"debugmalloc.h"
 	"graphics.h"
 	"ui_input.h"
+	"game_assets.h"
+	"game_attributes.h"
 	"star_map.h"
 	"player_ship.h"
 	"enemy_ship.h"
 
 1636462079 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\keymap_struct.h
 
-1636929917 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\ui_input.h
+1637765588 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\ui_input.h
+	"input_state_interface.h"
+	"keymap.h"
+	"SDL_timer.h"
 
-1637572922 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\ui_input.c
+1637783912 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\ui_input.c
+	"input_state_interface.h"
+	"ui_input.h"
+	"keymap.h"
 	<stdbool.h>
 	<SDL.h>
 	<SDL2_gfxPrimitives.h>
-	"input_state_interface.h"
-	"ui_input.h"
 	"debugmalloc.h"
 
-1637572785 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\star_map.h
+1637583614 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\star_map.h
 
-1636918559 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\star_map.c
+1637762190 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\star_map.c
 	"star_map.h"
 	"debugmalloc.h"
 
@@ -416,37 +423,52 @@
 	<process.h>
 	<unistd.h>
 
-1637416349 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\graphics.h
+1637574469 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\graphics.h
+	"star_map.h"
+	"player_ship.h"
+	"enemy_ship.h"
 
-1636928681 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\graphics.c
-	"graphics.h"
+1637760700 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\graphics.c
 	<SDL.h>
 	<SDL2_gfxPrimitives.h>
 	<math.h>
 	<stdlib.h>
 	<stdbool.h>
-	"input_state_interface.h"
 	"star_map.h"
 	"player_ship.h"
 	"enemy_ship.h"
+	"input_state_interface.h"
 	"debugmalloc.h"
+	"graphics.h"
 
-1637573638 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\input_state_interface.h
+1637766392 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\input_state_interface.h
 	<stdbool.h>
 
-1637573092 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\player_ship.c
+1637783990 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\player_ship.c
 	"input_state_interface.h"
 	"debugmalloc.h"
 	"player_ship.h"
 	<stdbool.h>
 
-1636929919 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\player_ship.h
+1637583615 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\player_ship.h
 
-1636922047 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\input_state_interface.c
+1637573395 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\input_state_interface.c
+	"ui_input.h"
 
 1636928806 source:c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\enemy_ship.c
 	"enemy_ship.h"
 	"debugmalloc.h"
 
-1636929922 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\enemy_ship.h
+1637583616 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\enemy_ship.h
+
+1637590887 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\game_assets.h
+	"star_map.h"
+	"player_ship.h"
+	"enemy_ship.h"
+
+1637590962 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\game_attributes.h
+	"input_state_interface.h"
+	<SDL.h>
+
+1637778296 c:\users\krisz\desktop\star-trek-federation-in-peril\star_trek_federation_in_peril\keymap.h
 

@@ -1,6 +1,10 @@
-#ifndef UI_INPUT_H
-#define UI_INPUT_H
+#ifndef UI_INPUT_H_INCLUDED
+#define UI_INPUT_H_INCLUDED
 
-void user_input(InputStateInterface *isi, SDL_TimerID id);
+#include "input_state_interface.h"
+#include "keymap.h"
+#include "SDL_timer.h"
 
-#endif // UI_INPUT_H
+void user_input(InputStateInterface *isi, KeyMap *key_map, SDL_TimerID id);
+
+#endif // UI_INPUT_H_INCLUDED

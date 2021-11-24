@@ -9,7 +9,7 @@ int static random_number_in_range(int lower, int upper){
 void advance_starmap_frame(StarMap *sm, int width, int hight){
     for(int i = 0; i < sm->length; i++){
         if(sm->stars[i].y_coor < hight + 10){
-            sm->stars[i].y_coor++;
+            sm->stars[i].y_coor += 2;
         }
         else{
             sm->stars[i].y_coor = 0;
@@ -41,6 +41,7 @@ StarMap *starmap_init(int width, int hight){
     sm->color = white;
     return sm;
 }
+
 
 void free_starmap(StarMap *sm){
     free(sm->stars);

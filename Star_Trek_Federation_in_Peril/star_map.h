@@ -1,7 +1,7 @@
-#ifndef STAR_MAP_H
-#define STAR_MAP_H
+#ifndef STAR_MAP_H_INCLUDED
+#define STAR_MAP_H_INCLUDED
 
-typedef struct Star_color{
+typedef struct starcolor{
     int r;
     int g;
     int b;
@@ -16,7 +16,7 @@ typedef struct star{
 }Star;
 
 
-typedef struct Star_map{
+typedef struct starmap{
     int length;
     Star *stars;
     StarColor color;
@@ -31,4 +31,4 @@ void advance_starmap_frame(StarMap *sm, int width, int hight);
 
 void free_starmap(StarMap *sm);
 
-#endif // STAR_MAP_H
+#endif // STAR_MAP_H_INCLUDED

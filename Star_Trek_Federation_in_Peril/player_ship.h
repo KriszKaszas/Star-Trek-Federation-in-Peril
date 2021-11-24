@@ -1,7 +1,7 @@
-#ifndef PLAYER_SHIP_H
-#define PLAYER_SHIP_H
+#ifndef PLAYER_SHIP_H_INCLUDED
+#define PLAYER_SHIP_H_INCLUDED
 
-typedef struct player_ship{
+typedef struct playership{
     int y_coor;
     int x_coor;
     int health;
@@ -10,8 +10,8 @@ typedef struct player_ship{
 
 PlayerShip *init_player_ship(int width, int hight, int health, int speed);
 
-void move_player_ship(PlayerShip *ps, InputStateInterface *isi);
+void move_player_ship(PlayerShip *ps, InputStateInterface *isi, int width, int hight);
 
 void free_player_ship(PlayerShip *ps);
 
-#endif // PLAYER_SHIP_H
+#endif // PLAYER_SHIP_H_INCLUDED

@@ -1,5 +1,9 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef GRAPHICS_H_INCLUDED
+#define GRAPHICS_H_INCLUDED
+
+#include "star_map.h"
+#include "player_ship.h"
+#include "enemy_ship.h"
 
 void create_window(int width, int hight);
 
@@ -17,4 +21,4 @@ void clear_enemy_ship(EnemyShip *es);
 
 void render_screen();
 
-#endif // GRAPHICS_H
+#endif // GRAPHICS_H_INCLUDED
