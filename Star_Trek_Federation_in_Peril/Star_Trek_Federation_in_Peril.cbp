@@ -69,6 +69,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="phaser.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="phaser.h" />
 		<Unit filename="player_ship.c">
 			<Option compilerVar="CC" />
 		</Unit>

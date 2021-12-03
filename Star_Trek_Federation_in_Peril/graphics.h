@@ -5,7 +5,7 @@
 #include "player_ship.h"
 #include "enemy_ship.h"
 
-void create_window(int width, int hight);
+void create_window(int width, int height);
 
 void draw_background(StarMap *sm);
 
@@ -15,7 +15,7 @@ void draw_player_ship(PlayerShip *ps);
 
 void clear_player_ship(PlayerShip *ps);
 
-void draw_enemy_ship(EnemyShip *es);
+void draw_enemy_ship(EnemyShips *es);
 
 void clear_enemy_ship(EnemyShip *es);
 

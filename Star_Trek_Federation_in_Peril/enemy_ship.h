@@ -1,6 +1,9 @@
 #ifndef ENEMY_SHIP_H_INCLUDED
 #define ENEMY_SHIP_H_INCLUDED
 
+#include "debugmalloc.h"
+#include "game_attributes.h"
+
 typedef struct enemyship{
     int y_coor;
     int x_coor;
@@ -8,8 +11,13 @@ typedef struct enemyship{
     int speed;
 }EnemyShip;
 
-EnemyShip *create_enemy_ship(int width, int health, int speed);
+typedef struct enemyships{
+    int length;
+    EnemyShip *enemy_ships;
+}EnemyShips;
 
-void move_enemy_ship(EnemyShip *es, int width, int hight);
+EnemyShip create_enemy_ship(int health, int speed, int x_coor, GameAttributes *game_attributes);
+
+void move_enemy_ship(EnemyShip *es, int width, int height);
 
 #endif // ENEMY_SHIP_H_INCLUDED

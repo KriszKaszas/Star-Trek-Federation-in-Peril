@@ -3,12 +3,22 @@
 
 #include <stdbool.h>
 
+typedef struct mouseposition{
+    int mouse_x;
+    int mouse_y;
+}MousePosition;
+
 typedef struct inputstateinterface{
     bool quit;
     bool up;
     bool down;
     bool left;
     bool right;
+    bool left_mouse_button;
+    bool right_mouse_button;
+    MousePosition mouse_position;
+    bool phaser_ready;
+    bool phaser_firing;
 } InputStateInterface;
 
 #endif // INPUT_STATE_INTERFACE_H_INCLUDED

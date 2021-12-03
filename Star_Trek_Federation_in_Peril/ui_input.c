@@ -1,15 +1,24 @@
-#include "input_state_interface.h"
 #include "ui_input.h"
+
+#include "input_state_interface.h"
 #include "keymap.h"
 
 #include <stdbool.h>
 #include <SDL.h>
 #include <SDL2_gfxPrimitives.h>
 
-
 #include "debugmalloc.h"
 
-
+/**
+*@brief user_input
+*@details A felhasználótól érkezõ billentyûparancsokat értelmezi, és egy interface-n keresztül adja
+át a program többi részének
+*@param [in out] isi a játék InputStateInterface-re mutató pointer. Ezen keresztül kommunikálnak egymással a vezérlõmodulok.
+*@param [in] key_map ez a vezérlõ KeyMap interfacen keresztül hasonlítja össze a bejövõ billentyûparancsokat a valid vezérlõ gombokkal.
+*@param [in] id egy SDL_TimerID típusú idõzítõ. Feladata, hogy generál egy SDL_USEREVENTet, amennyiben az idõzítõ lejártával nincs beérkezõ esemény/parancs
+(enélkül a vezérlõ blokkolná a program futását, nem mûködne a háttér animáció, és semmi nem történne, amíg nincs felhasználói interakció).
+*@return void
+*/
 
 void user_input(InputStateInterface *isi, KeyMap *key_map, SDL_TimerID id){
     SDL_Event event;
@@ -34,23 +43,6 @@ void user_input(InputStateInterface *isi, KeyMap *key_map, SDL_TimerID id){
                 isi->right = false;
             }
 
-            /*
-            if(event.key.keysym.sym == 'g')
-                printf("G was pressed\n");
-            */
-            //char *key = SDL_GetKeyName(event.key.keysym.sym);
-            printf("KeyUp %s\n", key);
-
-            printf(isi->up ? "W: true\n" : "W: false\n");
-            printf(isi->down ? "S: true\n" : "S: false\n");
-            printf(isi->left ? "A: true\n" : "A: false\n");
-            printf(isi->right ? "D: true\n" : "D: false\n");
-            /*
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->upkey) ? "W: true\n" : "W: false\n");
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->downkey) ? "S: true\n" : "S: false\n");
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->leftkey) ? "A: true\n" : "A: false\n");
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->rightkey) ? "D: true\n" : "D: false\n");
-            */
             break;
 
         case SDL_KEYDOWN:
@@ -67,19 +59,18 @@ void user_input(InputStateInterface *isi, KeyMap *key_map, SDL_TimerID id){
             if(event.key.keysym.sym == SDL_GetKeyFromName(key_map->rightkey)){
                 isi->right = true;
             }
-            printf("KeyDown %s\n", key);
+            break;
 
-            printf(isi->up ? "W: true\n" : "W: false\n");
-            printf(isi->down ? "S: true\n" : "S: false\n");
-            printf(isi->left ? "A: true\n" : "A: false\n");
-            printf(isi->right ? "D: true\n" : "D: false\n");
+        case SDL_MOUSEMOTION:
+            SDL_GetMouseState(&isi->mouse_position.mouse_x, &isi->mouse_position.mouse_y);
 
-            /*
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->upkey) ? "W: true\n" : "W: false\n");
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->downkey) ? "S: true\n" : "S: false\n");
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->leftkey) ? "A: true\n" : "A: false\n");
-            printf(event.key.keysym.sym == SDL_GetKeyFromName(key_map->rightkey) ? "D: true\n" : "D: false\n");
-            */
+            break;
+
+        case SDL_MOUSEBUTTONDOWN:
+            if(event.button.button == SDL_BUTTON_LEFT && isi->phaser_ready){
+                isi->left_mouse_button = true;
+            }
+
             break;
 
         case SDL_QUIT:

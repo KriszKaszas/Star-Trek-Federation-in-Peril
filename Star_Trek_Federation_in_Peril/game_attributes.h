@@ -6,7 +6,7 @@
 
 typedef struct gameattributes{
     int width;
-    int hight;
+    int height;
     InputStateInterface isi;
     SDL_TimerID id;
 }GameAttributes;
