@@ -1,23 +1,33 @@
 #ifndef ENEMY_SHIP_H_INCLUDED
 #define ENEMY_SHIP_H_INCLUDED
 
-#include "debugmalloc.h"
 #include "game_attributes.h"
+#include "enemy_ship.h"
+#include "data_transfer_types.h"
+
+#include "debugmalloc.h"
 
 typedef struct enemyship{
     int y_coor;
     int x_coor;
-    int health;
     int speed;
+    int health;
+    int damage;
+    ///char *avatar_path;
 }EnemyShip;
 
-typedef struct enemyships{
-    int length;
-    EnemyShip *enemy_ships;
-}EnemyShips;
+typedef struct enemysquadronship{
+    EnemyShip ship;
+    struct enemysquadronship *next_ship;
+    struct enemysquadronship *prev_ship;
+}EnemySquadronShip;
 
-EnemyShip create_enemy_ship(int health, int speed, int x_coor, GameAttributes *game_attributes);
+typedef struct enemyarmada{
+    int number_of_squadrons;
+    EnemySquadronShip **enemy_armada;
+    int *squadron_entry_dirs;
+    int *squadron_heights;
+}EnemyArmada;
 
-void move_enemy_ship(EnemyShip *es, int width, int height);
 
 #endif // ENEMY_SHIP_H_INCLUDED

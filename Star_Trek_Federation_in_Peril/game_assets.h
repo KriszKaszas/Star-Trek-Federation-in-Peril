@@ -8,7 +8,7 @@
 typedef struct gameassets{
     StarMap *star_map;
     PlayerShip *player_ship;
-    EnemyShips *enemy_ships;
+    EnemyArmada *enemy_armada;
 }GameAssets;
 
 #endif // GAME_ASSETS_H_INCLUDED

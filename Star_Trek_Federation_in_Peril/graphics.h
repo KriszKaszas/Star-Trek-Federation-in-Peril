@@ -15,9 +15,9 @@ void draw_player_ship(PlayerShip *ps);
 
 void clear_player_ship(PlayerShip *ps);
 
-void draw_enemy_ship(EnemyShips *es);
+void draw_enemy_ship(EnemyArmada *armada);
 
-void clear_enemy_ship(EnemyShip *es);
+void clear_enemy_ship(EnemyArmada *armad);
 
 void render_screen();
 

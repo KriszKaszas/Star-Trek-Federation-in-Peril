@@ -18,7 +18,6 @@ static SDL_Renderer *renderer;
 
 
 
-/* ablak letrehozasa */
 static void sdl_init(char const *title, int width, int height, SDL_Window **pwindow, SDL_Renderer **prenderer) {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         SDL_Log("Nem indithato az SDL: %s", SDL_GetError());
@@ -60,9 +59,15 @@ void draw_crosshair(int x_coor, int y_coor){
     lineRGBA(renderer, x_coor, y_coor-20, x_coor, y_coor+20, 255, 50, 50, 255);
 }
 
-void draw_enemy_ships(EnemyShips *es){
-    for(int i = 0; i <= es->length; i++)
-        filledCircleRGBA(renderer, es->enemy_ships[i].x_coor, es->enemy_ships[i].y_coor, 30, 46, 204, 113, 255);
+void draw_enemy_ships(EnemyArmada *armada){
+    for(int i = 0; i < armada->number_of_squadrons; i++){
+        EnemySquadronShip *tmp = armada->enemy_armada[i];
+        while(tmp != NULL){
+            filledCircleRGBA(renderer, tmp->ship.x_coor,
+                            tmp->ship.y_coor, 30, 46, 204, 113, 255);
+            tmp = tmp->next_ship;
+        }
+    }
 }
 
 void draw_phaser(PhaserBeam *phaser){

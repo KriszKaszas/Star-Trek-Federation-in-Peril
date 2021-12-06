@@ -46,6 +46,7 @@
 			<Add library="dxguid" />
 			<Add directory="$(#sdl2.lib)" />
 		</Linker>
+		<Unit filename="data_transfer_types.h" />
 		<Unit filename="debugmalloc.h" />
 		<Unit filename="enemy_ship.c">
 			<Option compilerVar="CC" />
