@@ -2,8 +2,9 @@
 #define ENEMY_SHIP_H_INCLUDED
 
 #include "game_attributes.h"
-#include "enemy_ship.h"
 #include "data_transfer_types.h"
+
+#include <stdbool.h>
 
 #include "debugmalloc.h"
 
@@ -25,8 +26,10 @@ typedef struct enemysquadronship{
 typedef struct enemyarmada{
     int number_of_squadrons;
     EnemySquadronShip **enemy_armada;
-    int *squadron_entry_dirs;
+    int *squadron_dirs;
     int *squadron_heights;
+    bool *entry_finished_per_squadron;
+    bool ready_to_move;
 }EnemyArmada;
 
 

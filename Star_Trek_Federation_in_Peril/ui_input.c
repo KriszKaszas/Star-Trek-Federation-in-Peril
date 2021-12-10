@@ -42,13 +42,16 @@ void user_input(InputStateInterface *isi, KeyMap *key_map, SDL_TimerID id){
             if(event.key.keysym.sym == SDL_GetKeyFromName(key_map->rightkey)){
                 isi->right = false;
             }
-
+            if(event.key.keysym.sym == SDL_GetKeyFromName(key_map->torpedokey)){
+                isi->torpedo_ready = true;
+            }
             break;
 
         case SDL_KEYDOWN:
             key = SDL_GetKeyName(event.key.keysym.sym);
              if(event.key.keysym.sym == SDL_GetKeyFromName(key_map->upkey)){
                 isi->up = true;
+            printf("%s\n", SDL_GetKeyName(event.key.keysym.sym));
             }
             if(event.key.keysym.sym == SDL_GetKeyFromName(key_map->downkey)){
                 isi->down = true;
@@ -58,6 +61,10 @@ void user_input(InputStateInterface *isi, KeyMap *key_map, SDL_TimerID id){
             }
             if(event.key.keysym.sym == SDL_GetKeyFromName(key_map->rightkey)){
                 isi->right = true;
+            }
+            if(event.key.keysym.sym == SDL_GetKeyFromName(key_map->torpedokey) && isi->torpedo_ready){
+                isi->torpedo = true;
+                isi->torpedo_ready = false;
             }
             break;
 

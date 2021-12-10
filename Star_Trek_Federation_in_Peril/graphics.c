@@ -4,6 +4,7 @@
 #include "enemy_ship.h"
 #include "input_state_interface.h"
 #include "phaser.h"
+#include "torpedo.h"
 
 #include <SDL.h>
 #include <SDL2_gfxPrimitives.h>
@@ -54,6 +55,7 @@ void draw_player_ship(PlayerShip *ps){
     filledCircleRGBA(renderer, ps->x_coor, ps->y_coor, 30, 218, 223, 225, 255);
 }
 
+
 void draw_crosshair(int x_coor, int y_coor){
     lineRGBA(renderer, x_coor-20, y_coor, x_coor+20, y_coor, 255, 50, 50, 255);
     lineRGBA(renderer, x_coor, y_coor-20, x_coor, y_coor+20, 255, 50, 50, 255);
@@ -62,6 +64,7 @@ void draw_crosshair(int x_coor, int y_coor){
 void draw_enemy_ships(EnemyArmada *armada){
     for(int i = 0; i < armada->number_of_squadrons; i++){
         EnemySquadronShip *tmp = armada->enemy_armada[i];
+        EnemySquadronShip *tmp2 = armada->enemy_armada[i];
         while(tmp != NULL){
             filledCircleRGBA(renderer, tmp->ship.x_coor,
                             tmp->ship.y_coor, 30, 46, 204, 113, 255);
@@ -77,6 +80,19 @@ void draw_phaser(PhaserBeam *phaser){
     thickLineRGBA(renderer, phaser->beg_x, phaser->beg_y, phaser->end_x, phaser->end_y, 2,
                   phaser->beam_composition.core_color.a, phaser->beam_composition.core_color.g,
                   phaser->beam_composition.core_color.b, phaser->beam_composition.core_color.a);
+}
+
+void draw_torpedo(TorpedoShot *torpedoes){
+    TorpedoShot *tmp = torpedoes;
+    while(tmp != NULL){
+        filledCircleRGBA(renderer, tmp->x_coor, tmp->y_coor, 15,
+                         tmp->colors.outter_ring.r, tmp->colors.outter_ring.g, tmp->colors.outter_ring.b, tmp->colors.outter_ring.a);
+        filledCircleRGBA(renderer, tmp->x_coor, tmp->y_coor, 10,
+                         tmp->colors.inner_ring.r, tmp->colors.inner_ring.g, tmp->colors.inner_ring.b, tmp->colors.inner_ring.a);
+        filledCircleRGBA(renderer, tmp->x_coor, tmp->y_coor, 5,
+                         tmp->colors.center.r, tmp->colors.center.g, tmp->colors.center.b, tmp->colors.center.a);
+        tmp = tmp->next_torpedo;
+    }
 }
 
 void clear_screen(){

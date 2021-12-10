@@ -14,6 +14,8 @@ typedef struct inputstateinterface{
     bool down;
     bool left;
     bool right;
+    bool torpedo;
+    bool torpedo_ready;
     bool left_mouse_button;
     bool right_mouse_button;
     MousePosition mouse_position;

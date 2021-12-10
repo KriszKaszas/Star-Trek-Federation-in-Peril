@@ -82,6 +82,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="star_map.h" />
+		<Unit filename="torpedo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="torpedo.h" />
 		<Unit filename="ui_input.c">
 			<Option compilerVar="CC" />
 		</Unit>

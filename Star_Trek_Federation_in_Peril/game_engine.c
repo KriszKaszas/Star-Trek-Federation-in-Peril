@@ -26,7 +26,7 @@ Uint32 static input_timer(Uint32 ms, void *param) {
 }
 
 GameAssets static *init_game_assets(GameAttributes *game_attributes){
-    ShipDTT ship_dtt = {3, 10, 5};
+    ShipDTT ship_dtt = {1, 10, 5};
     ShipDTT *squadrons[3] = {&ship_dtt, &ship_dtt, &ship_dtt};
     int ships_per_sq[3] = {4, 5, 6};
     LevelDTT level_dtt;
@@ -38,6 +38,10 @@ GameAssets static *init_game_assets(GameAttributes *game_attributes){
     game_assets->star_map = starmap_init(game_attributes->width, game_attributes->height);
     game_assets->player_ship = init_player_ship(game_attributes->width, game_attributes->height, 100, 1);
     game_assets->enemy_armada = init_enemy_armada(level_dtt, game_attributes);
+    game_assets->player_torpedo = NULL;
+    game_assets->quantum_torpedo = NULL;
+    game_assets->enemy_torpedo = NULL;
+
     return game_assets;
 }
 
@@ -50,6 +54,8 @@ GameAttributes static *init_game_attributes(){
     game_attributes->isi.down = false;
     game_attributes->isi.left = false;
     game_attributes->isi.right = false;
+    game_attributes->isi.torpedo = false;
+    game_attributes->isi.torpedo_ready = true;
     game_attributes->isi.left_mouse_button = false;
     game_attributes->isi.right_mouse_button = false;
     game_attributes->isi.mouse_position = mouse;
@@ -68,6 +74,7 @@ KeyMap *default_keymap_init(){
     key_map->downkey = "S";
     key_map->leftkey = "A";
     key_map->rightkey = "D";
+    key_map->torpedokey = "Space";
     return key_map;
 }
 
@@ -89,6 +96,8 @@ void static draw_graphics(int player_ship_time, GameAssets *game_assets, GameAtt
         game_attributes->isi.phaser_firing = false;
         game_attributes->isi.left_mouse_button  = false;
     }
+    draw_torpedo(game_assets->player_torpedo);
+    draw_torpedo(game_assets->enemy_torpedo);
     draw_enemy_ships(game_assets->enemy_armada);
     draw_player_ship(game_assets->player_ship);
     draw_crosshair(game_attributes->isi.mouse_position.mouse_x, game_attributes->isi.mouse_position.mouse_y);
@@ -96,19 +105,54 @@ void static draw_graphics(int player_ship_time, GameAssets *game_assets, GameAtt
 
 void static calculate_game_assets(GameAssets *game_assets, GameAttributes *game_attributes, int enemy_ship_time){
     int static time = 0;
+    int static shot_time = 0;
     move_player_ship(game_assets->player_ship, &game_attributes->isi, game_attributes->width, game_attributes->height);
     advance_starmap_frame(game_assets->star_map, game_attributes->width, game_attributes->height);
     if(enemy_ship_time*2 > time){
-        for(int i = 0; i < game_assets->enemy_armada->number_of_squadrons; i++){
-            enemy_armada_entry_animation(game_assets->enemy_armada->enemy_armada[i], game_attributes, game_assets->enemy_armada->squadron_entry_dirs[i]);
+        if(!game_assets->enemy_armada->ready_to_move){
+            for(int i = 0; i < game_assets->enemy_armada->number_of_squadrons; i++){
+                game_assets->enemy_armada->entry_finished_per_squadron[i] = enemy_armada_entry_animation(game_assets->enemy_armada->enemy_armada[i],
+                                                                                                         game_attributes, game_assets->enemy_armada->squadron_dirs[i]);
+
+            }
+            int squardon_in_place_ctr = 0;
+            for(int i = 0; i < game_assets->enemy_armada->number_of_squadrons; i++){
+                if(game_assets->enemy_armada->entry_finished_per_squadron[i]){
+                    squardon_in_place_ctr++;
+                }
+            }
+            if(squardon_in_place_ctr == game_assets->enemy_armada->number_of_squadrons){
+                game_assets->enemy_armada->ready_to_move = true;
+                modify_enemy_dir(game_assets->enemy_armada);
+            }
         }
-        /*
-        printf("\n\nSquadron data: \n");
-        printf("First squadron: x:%d y:%d\n", game_assets->enemy_armada->enemy_armada[0]->ship.x_coor, game_assets->enemy_armada->enemy_armada[0]->ship.y_coor);
-        printf("Second squadron: x:%d y:%d\n", game_assets->enemy_armada->enemy_armada[1]->ship.x_coor, game_assets->enemy_armada->enemy_armada[1]->ship.y_coor);
-        printf("Third squadron: x:%d y:%d\n\n", game_assets->enemy_armada->enemy_armada[2]->ship.x_coor, game_assets->enemy_armada->enemy_armada[2]->ship.y_coor);
-        */
+        else if(game_assets->enemy_armada->ready_to_move){
+            move_enemy_armada(game_assets->enemy_armada, game_attributes);
+        }
+
         time = enemy_ship_time*2;
+    }
+    if(game_attributes->isi.torpedo){
+        game_assets->player_torpedo = add_torpedo_shot(game_assets->player_torpedo, 5, 2,
+                         game_assets->player_ship->x_coor, game_assets->player_ship->y_coor, false, false);
+        game_attributes->isi.torpedo = false;
+    }
+    if(game_assets->player_torpedo != NULL){
+        move_torpedoes(&game_assets->player_torpedo, game_attributes);
+    }
+    if(game_assets->enemy_armada->ready_to_move && enemy_ship_time > shot_time){
+        for(int i = 0; i < game_assets->enemy_armada->number_of_squadrons; i++){
+            EnemySquadronShip *tmp = game_assets->enemy_armada->enemy_armada[i];
+            while(tmp != NULL){
+                game_assets->enemy_torpedo = add_torpedo_shot(game_assets->enemy_torpedo,
+                                                              tmp->ship.damage, 2, tmp->ship.x_coor, tmp->ship.y_coor, true, false);
+                tmp = tmp->next_ship;
+            }
+        }
+        shot_time += 1000;
+    }
+     if(game_assets->enemy_torpedo != NULL){
+        move_torpedoes(&game_assets->enemy_torpedo, game_attributes);
     }
 }
 
@@ -116,6 +160,10 @@ void static free_assets(GameAssets *game_assets){
     free_starmap(game_assets->star_map);
     free_player_ship(game_assets->player_ship);
     free_enemy_armada(game_assets->enemy_armada);
+    free_torpedoes(game_assets->player_torpedo);
+    free_torpedoes(game_assets->enemy_torpedo);
+    free_torpedoes(game_assets->quantum_torpedo);
+
 }
 
 void static free_components(GameAssets *game_assets, GameAttributes *game_attributes){
@@ -135,7 +183,7 @@ void static game_loop(GameAssets *game_assets, KeyMap *key_map, GameAttributes *
     int player_ship_time = 0;
     int enemy_ship_time = 0;
     for(int i = 0; i < game_assets->enemy_armada->number_of_squadrons; i++){
-        position_enemy_armada(game_assets->enemy_armada->enemy_armada[i], game_attributes, game_assets->enemy_armada->squadron_entry_dirs[i]);
+        position_enemy_armada(game_assets->enemy_armada->enemy_armada[i], game_attributes, game_assets->enemy_armada->squadron_dirs[i]);
     }
     while(!game_attributes->isi.quit){
         player_ship_time = keep_player_time();
